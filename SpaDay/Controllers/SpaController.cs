@@ -4,8 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace SpaDay.Controllers
 {
     public class SpaController : Controller
@@ -39,9 +37,10 @@ namespace SpaDay.Controllers
         }
 
         [HttpPost]
-        [Route("/spa")]
-        public IActionResult Menu(string name, string skintype, string manipedi)
+        public IActionResult Index(string name, string skintype, string manipedi)
         {
+
+
             List<string> facials = new List<string>()
             {
                 "Microdermabrasion", "Hydrofacial", "Rejuvenating", "Enzyme Peel"
@@ -55,9 +54,12 @@ namespace SpaDay.Controllers
                     appropriateFacials.Add(facials[i]);
                 }
             }
-            return View();
+
+            ViewBag.name = name;
+            ViewBag.skintype = skintype;
+            ViewBag.appropriateFacials = appropriateFacials;
+
+            return View("Menu");
         }
-
-
     }
 }
