@@ -33,5 +33,14 @@ namespace SpaDay.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public IActionResult LogOutUser()
+        {
+            ViewBag.user = null;
+
+            ViewBag.passwordsDoNotMatch = null;
+
+            return View();
+        }
     }
 }

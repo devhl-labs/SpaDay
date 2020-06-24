@@ -7,8 +7,10 @@ namespace SpaDay.Models
     public class Client
     {
         public string SkinType { get; set; }
+
         public string NailService { get; set; }
-        private List<string> appropriateFacials = new List<string>();
+
+        private readonly List<string> _appropriateFacials = new List<string>();
 
         public Client(string skinType, string nailService)
         {
@@ -16,72 +18,41 @@ namespace SpaDay.Models
             NailService = nailService;
         }
 
-        public List<string> GetFacials()
-        {
-            return appropriateFacials;
-        }
+        public List<string> GetFacials() => _appropriateFacials;        
 
         public bool CheckSkinType(string skinType, string facialType)
         {
-
-            if (skinType == "oily")
-            {
-                if (facialType == "Microdermabrasion" || facialType == "Rejuvenating")
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
+            if (skinType == "oily" && facialType == "Microdermabrasion" || facialType == "Rejuvenating")               
+                return true;                
+            else if(skinType == "oily")
+                return false; 
+            else if (skinType == "combination" && (facialType == "Microdermabrasion" || facialType == "Rejuvenating" || facialType == "Enzyme Peel"))                          
+                return true;                
             else if (skinType == "combination")
-            {
-                if (facialType == "Microdermabrasion" || facialType == "Rejuvenating" || facialType == "Enzyme Peel")
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else if (skinType == "normal")
-            {
-                return true;
-            }
-            else if (skinType == "dry")
-            {
-                if (facialType == "Rejuvenating" || facialType == "Hydrofacial")
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                return true;
-            }
+                return false;
+            else if (skinType == "normal")            
+                return true;            
+            else if (skinType == "dry" && (facialType == "Rejuvenating" || facialType == "Hydrofacial"))               
+                return true;                
+            else if(skinType == "dry")              
+                return false;  
+            else            
+                return true;            
         }
 
         public void SetFacials(String skinType)
         {
-            List<String> facials = new List<String>();
-            facials.Add("Microdermabrasion");
-            facials.Add("Hydrofacial");
-            facials.Add("Rejuvenating");
-            facials.Add("Enzyme Peel");
-
-            foreach (string facial in facials)
+            List<string> facials = new List<String>
             {
-                if (CheckSkinType(skinType, facial))
-                {
-                    appropriateFacials.Add(facial);
-                }
-            }
+                "Microdermabrasion",
+                "Hydrofacial",
+                "Rejuvenating",
+                "Enzyme Peel"
+            };
+
+            foreach (string facial in facials)            
+                if (CheckSkinType(skinType, facial))                
+                    _appropriateFacials.Add(facial);
         }
     }
 }

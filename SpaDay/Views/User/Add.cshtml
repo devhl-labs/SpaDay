@@ -1,0 +1,21 @@
+﻿@*
+User/Add    
+*@
+
+<form method="post">
+
+    <label for="userName">UserName</label>
+    <input name="userName" value="@(ViewBag.user?.UserName ?? "Enter Name")"/>
+    <label for="email">Email</label>
+    <input name="email" type="email" value="@(ViewBag.user?.Email ?? "Enter Email")" />
+    <label for="password">Password</label>
+    <input name="password" type="password"/>
+
+    <input type="submit" />
+
+</form>
+
+@if (ViewBag.passwordsDoNotMatch == false)
+{
+    <text>Passwords do not match!</text>
+}
